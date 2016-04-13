@@ -25,7 +25,7 @@ class Ui
     MENU_OPTIONS.each do |number, option|
       output.puts "#{number} - #{option}"
     end
-    output.print"--->"
+    output.print"---> "
     get_menu_option
   end
 

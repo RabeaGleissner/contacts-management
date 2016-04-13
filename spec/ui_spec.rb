@@ -11,7 +11,7 @@ describe Ui do
   it "displays menu of options" do
     ui = Ui.new(StringIO.new("2"), output)
     ui.menu
-    expect(output.string).to eq("#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n--->")
+    expect(output.string).to eq("#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n---> ")
   end
 
   it "gets user input for menu choice" do
@@ -28,7 +28,7 @@ describe Ui do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("n", "2")
      ui.get_menu_option
-     expect(output.string).to eq ("#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n--->")
+     expect(output.string).to eq ("#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n---> ")
    end
 
    it "gets user input for all fields of a contact" do
