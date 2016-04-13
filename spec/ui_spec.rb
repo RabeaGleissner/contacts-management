@@ -30,4 +30,17 @@ describe Ui do
      ui.get_menu_option
      expect(output.string).to eq ("#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n--->")
    end
+
+   it "gets user input for all fields of a contact" do
+     ui = Ui.new(input, output)
+     allow(ui.input).to receive(:gets).and_return("Jon", "Doe", "test@121.de", "093383", "@jon")
+     ui.contact_details
+     expect(output.string).to eq ("#{CLEAR_SCREEN}\nFirst name:\nLast name:\nEmail:\nMobile number:\nTwitter:\n")
+   end
+
+   it "returns contact details entered by user" do
+     ui = Ui.new(input, output)
+     allow(ui.input).to receive(:gets).and_return("Jon", "Doe", "test@121.de", "093383", "@jon")
+     expect(ui.contact_details).to eq ["Jon", "Doe", "test@121.de", "093383", "@jon"]
+   end
 end
