@@ -41,6 +41,11 @@ describe Ui do
    it "returns contact details entered by user" do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("Jon", "Doe", "test@121.de", "093383", "@jon")
-     expect(ui.contact_details).to eq ["Jon", "Doe", "test@121.de", "093383", "@jon"]
+     expect(ui.contact_details).to eq ({:first_name=>"Jon", :last_name=>"Doe", :email=>"test@121.de", :mobile_number=>"093383", :twitter=>"@jon"})
+   end
+
+   it "converts a ruby symbol into a displayable word" do
+     ui = Ui.new(input, output)
+     expect(ui.format_for_display(:first_name)).to eq "First name"
    end
 end
