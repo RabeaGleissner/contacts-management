@@ -22,6 +22,15 @@ class Ui
   end
 
   def get_menu_option
-    input.gets.chomp.to_i
+    user_input = input.gets.chomp
+    if valid_menu_option?(user_input)
+      user_input.to_i
+    else
+      menu
+    end
+  end
+
+  def valid_menu_option?(user_input)
+    MENU_OPTIONS.key?(user_input.to_i)
   end
 end
