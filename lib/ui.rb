@@ -2,23 +2,19 @@ class Ui
   attr_reader :input, :output
 
   CLEAR_SCREEN = "\e[H\e[2J"
-  MENU_OPTIONS = {
-    1 => "Create contact",
-    2 => "List all contacts"
-  }
 
   def initialize(input, output)
     @input = input
     @output = output
   end
 
-  def menu
+  def menu(options)
     output.puts "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n"
-    MENU_OPTIONS.each do |number, option|
+    options.each do |number, option|
       output.puts "#{number} - #{option}"
     end
     output.print"---> "
-    get_menu_option
+    get_menu_option(options)
   end
 
   def display_all(contacts)
@@ -42,17 +38,19 @@ class Ui
     contact_details
   end
 
-  def get_menu_option
+  private
+
+  def get_menu_option(options)
     user_input = input.gets.chomp
-    if valid_menu_option?(user_input)
+    if valid_menu_option?(user_input, options)
       user_input.to_i
     else
-      menu
+      menu(options)
     end
   end
 
-  def valid_menu_option?(user_input)
-    MENU_OPTIONS.key?(user_input.to_i)
+  def valid_menu_option?(user_input, options)
+    options.key?(user_input.to_i)
   end
 
   def format_for_display(symbol)

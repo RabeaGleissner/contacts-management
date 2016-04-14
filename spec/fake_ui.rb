@@ -1,6 +1,13 @@
 class FakeUi
-  def menu
-    1
+  attr_reader :display_contacts_was_called
+
+  def initialize(menu_option)
+    @menu_option = menu_option
+    @display_contacts_was_called = false
+  end
+
+  def menu(options)
+    menu_option
   end
 
   def get_contact_details(field)
@@ -13,4 +20,11 @@ class FakeUi
     }
   end
 
+  def display_all_contacts(contacts)
+    @display_contacts_was_called = true
+  end
+
+  private
+
+  attr_reader :menu_option
 end
