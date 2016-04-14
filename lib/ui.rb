@@ -12,11 +12,12 @@ class Ui
     options.each do |number, option|
       output.puts "#{number} - #{option}"
     end
-    output.print"---> "
+    output.print"\n---> "
     get_menu_option(options)
   end
 
   def display_all(contacts)
+    output.puts "#{CLEAR_SCREEN}"
     if contacts.length >= 1
       contacts.each {|contact| display(contact)}
     else
@@ -25,7 +26,7 @@ class Ui
   end
 
   def continue?
-    output.puts "Would you like to continue? (y\\n)"
+    output.puts "\nWould you like to continue? (y\\n)"
     get_continue_request
   end
 
@@ -42,10 +43,10 @@ class Ui
   private
 
   def display(contact)
-    output.puts "#{CLEAR_SCREEN}"
     contact.each do |field, entry|
       output.puts "#{format_for_display(field)}: #{entry}"
     end
+    output.puts "---"
   end
 
   def get_continue_request

@@ -17,7 +17,7 @@ describe Ui do
   it "displays the main menu" do
     ui = Ui.new(StringIO.new("2"), output)
     ui.menu(OPTIONS)
-    expect(output.string).to eq "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n---> "
+    expect(output.string).to eq "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n\n---> "
   end
 
   it "gets user's menu option choice" do
@@ -29,7 +29,7 @@ describe Ui do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("n", "2")
      ui.menu(OPTIONS)
-     expect(output.string).to eq (("#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n---> ") * 2)
+     expect(output.string).to eq (("#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n\n---> ") * 2)
    end
 
    it "gets input for all fields of a contact" do
@@ -45,23 +45,23 @@ describe Ui do
      expect(ui.get_contact_details(FIELDS)).to eq ({:first_name=>"Jon", :last_name=>"Doe", :email=>"test@121.de", :mobile_number=>"093383", :twitter=>"@jon"})
    end
 
-   xit "displays all contacts" do
+   it "displays all contacts" do
      ui = Ui.new(input, output)
      ui.display_all([CONTACT_1, CONTACT_2])
-     expect(output.string).to eq "#{CLEAR_SCREEN}\nFirst name: Jon\nLast name: Doe\nEmail: jon@123.de\nMobile number: 00000\nTwitter: @jon\n---\nFirst name: Jane\nLast name: Dill\nEmail: jane@123.de\nMobile number: 11111\nTwitter: @jane\n---"
+     expect(output.string).to eq "#{CLEAR_SCREEN}\nFirst name: Jon\nLast name: Doe\nEmail: jon@123.de\nMobile number: 00000\nTwitter: @jon\n---\nFirst name: Jane\nLast name: Dill\nEmail: jane@123.de\nMobile number: 11111\nTwitter: @jane\n---\n"
    end
 
    it "displays a message if there are no contacts to display" do
      ui = Ui.new(input, output)
      ui.display_all([])
-     expect(output.string).to eq "Sorry, there are no contacts to display!\n"
+     expect(output.string).to eq "#{CLEAR_SCREEN}\nSorry, there are no contacts to display!\n"
    end
 
    it "asks the user if they want to continue" do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("n")
      ui.continue?
-     expect(output.string).to eq "Would you like to continue? (y\\n)\n"
+     expect(output.string).to eq "\nWould you like to continue? (y\\n)\n"
    end
 
    it "gets the user's choice for continuing or not" do
@@ -73,6 +73,6 @@ describe Ui do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("invalid", "n")
      ui.continue?
-     expect(output.string).to eq (("Would you like to continue? (y\\n)\n") * 2)
+     expect(output.string).to eq (("\nWould you like to continue? (y\\n)\n") * 2)
    end
 end
