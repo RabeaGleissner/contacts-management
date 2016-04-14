@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'stringio'
 require 'ui'
+require 'app'
 
 describe Ui do
   let (:input) {StringIO.new}
@@ -34,14 +35,14 @@ describe Ui do
    it "gets user input for all fields of a contact" do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("Jon", "Doe", "test@121.de", "093383", "@jon")
-     ui.contact_details
+     ui.get_contact_details(App::FIELDS)
      expect(output.string).to eq ("#{CLEAR_SCREEN}\nFirst name:\nLast name:\nEmail:\nMobile number:\nTwitter:\n")
    end
 
    it "returns contact details entered by user" do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("Jon", "Doe", "test@121.de", "093383", "@jon")
-     expect(ui.contact_details).to eq ({:first_name=>"Jon", :last_name=>"Doe", :email=>"test@121.de", :mobile_number=>"093383", :twitter=>"@jon"})
+     expect(ui.get_contact_details(App::FIELDS)).to eq ({:first_name=>"Jon", :last_name=>"Doe", :email=>"test@121.de", :mobile_number=>"093383", :twitter=>"@jon"})
    end
 
    it "converts a ruby symbol into a displayable word" do

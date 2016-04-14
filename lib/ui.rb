@@ -7,14 +7,6 @@ class Ui
     2 => "List all contacts"
   }
 
-  FIELDS = {
-    first_name: nil,
-    last_name: nil,
-    email: nil,
-    mobile_number: nil,
-    twitter: nil
-  }
-
   def initialize(input, output)
     @input = input
     @output = output
@@ -29,14 +21,14 @@ class Ui
     get_menu_option
   end
 
-  def contact_details
-    details = []
+  def get_contact_details(fields)
+    contact_details = {}
     output.puts "#{CLEAR_SCREEN}"
-    FIELDS.each do |field_name, entry|
+    fields.each do |field_name|
       output.puts "#{format_for_display(field_name)}:"
-      FIELDS[field_name] = input.gets.chomp
+      contact_details[field_name] = input.gets.chomp
     end
-    FIELDS
+    contact_details
   end
 
   def get_menu_option
