@@ -21,6 +21,17 @@ class Ui
     get_menu_option
   end
 
+  def display_all(contacts)
+    contacts.each {|contact| display(contact)}
+  end
+
+  def display(contact)
+    output.puts "#{CLEAR_SCREEN}"
+    contact.each do |field, entry|
+      output.puts "#{format_for_display(field)}: #{entry}"
+    end
+  end
+
   def get_contact_details(fields)
     contact_details = {}
     output.puts "#{CLEAR_SCREEN}"

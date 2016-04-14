@@ -8,6 +8,8 @@ describe Ui do
   let (:output) {StringIO.new}
 
   CLEAR_SCREEN = "\e[H\e[2J"
+  CONTACT_1 = {:first_name=>"Jon", :last_name=>"Doe", :email=>"jon@123.de", :mobile_number=>"00000", :twitter=>"@jon"}
+  CONTACT_2 = {:first_name=>"Jane", :last_name=>"Dill", :email=>"jane@123.de", :mobile_number=>"11111", :twitter=>"@jane"}
 
   it "displays menu of options" do
     ui = Ui.new(StringIO.new("2"), output)
@@ -48,5 +50,17 @@ describe Ui do
    it "converts a ruby symbol into a displayable word" do
      ui = Ui.new(input, output)
      expect(ui.format_for_display(:first_name)).to eq "First name"
+   end
+
+   it "displays existing contact" do
+     ui = Ui.new(input, output)
+     ui.display(CONTACT_1)
+     expect(output.string).to eq "#{CLEAR_SCREEN}\nFirst name: Jon\nLast name: Doe\nEmail: jon@123.de\nMobile number: 00000\nTwitter: @jon\n"
+   end
+
+   it "displays several contacts" do
+     ui = Ui.new(input, output)
+     ui.display_all([CONTACT_1, CONTACT_2])
+     expect(output.string).to eq "#{CLEAR_SCREEN}\nFirst name: Jon\nLast name: Doe\nEmail: jon@123.de\nMobile number: 00000\nTwitter: @jon\n\e[H\e[2J\nFirst name: Jane\nLast name: Dill\nEmail: jane@123.de\nMobile number: 11111\nTwitter: @jane\n"
    end
 end
