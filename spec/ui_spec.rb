@@ -59,4 +59,23 @@ describe Ui do
      ui.display_all([])
      expect(output.string).to eq "Sorry, there are no contacts to display!\n"
    end
+
+   it "asks the user if they want to continue" do
+     ui = Ui.new(input, output)
+     allow(ui.input).to receive(:gets).and_return("n")
+     ui.continue?
+     expect(output.string).to eq "Would you like to continue? (y\\n)\n"
+   end
+
+   it "gets the users choice for continuing or not" do
+     ui = Ui.new(StringIO.new("y"), output)
+     expect(ui.continue?).to eq true
+   end
+
+   it "asks again on bad input for continuation request" do
+     ui = Ui.new(input, output)
+     allow(ui.input).to receive(:gets).and_return("invalid", "n")
+     ui.continue?
+     expect(output.string).to eq (("Would you like to continue? (y\\n)\n") * 2)
+   end
 end

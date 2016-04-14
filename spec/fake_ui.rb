@@ -1,13 +1,15 @@
 class FakeUi
-  attr_reader :display_contacts_was_called
+  attr_reader :display_contacts_was_called, :count_menu_calls
 
   def initialize(menu_option)
     @menu_option = menu_option
     @display_contacts_was_called = false
+    @count_menu_calls = 0
   end
 
   def menu(options)
-    menu_option
+    @count_menu_calls += 1
+    menu_option.pop
   end
 
   def get_contact_details(field)
@@ -20,8 +22,12 @@ class FakeUi
     }
   end
 
-  def display_all_contacts(contacts)
+  def display_all(contacts)
     @display_contacts_was_called = true
+  end
+
+  def continue?
+    [true, false].pop
   end
 
   private

@@ -25,6 +25,11 @@ class Ui
     end
   end
 
+  def continue?
+    output.puts "Would you like to continue? (y\\n)"
+    get_continue_request
+  end
+
   def display(contact)
     output.puts "#{CLEAR_SCREEN}"
     contact.each do |field, entry|
@@ -43,6 +48,17 @@ class Ui
   end
 
   private
+
+  def get_continue_request
+    decision = input.gets.chomp
+    if decision == "y"
+      true
+    elsif decision == "n"
+      false
+    else
+      continue?
+    end
+  end
 
   def get_menu_option(options)
     user_input = input.gets.chomp
