@@ -1,6 +1,5 @@
 class Ui
   attr_reader :input, :output
-
   CLEAR_SCREEN = "\e[H\e[2J"
 
   def initialize(input, output)
@@ -30,24 +29,24 @@ class Ui
     get_continue_request
   end
 
+  def get_contact_details(fields)
+    new_contact = {}
+    output.puts "#{CLEAR_SCREEN}"
+    fields.each do |field_name|
+      output.print "#{format_for_display(field_name)}: "
+      new_contact[field_name] = input.gets.chomp
+    end
+    new_contact
+  end
+
+  private
+
   def display(contact)
     output.puts "#{CLEAR_SCREEN}"
     contact.each do |field, entry|
       output.puts "#{format_for_display(field)}: #{entry}"
     end
   end
-
-  def get_contact_details(fields)
-    contact_details = {}
-    output.puts "#{CLEAR_SCREEN}"
-    fields.each do |field_name|
-      output.puts "#{format_for_display(field_name)}:"
-      contact_details[field_name] = input.gets.chomp
-    end
-    contact_details
-  end
-
-  private
 
   def get_continue_request
     decision = input.gets.chomp

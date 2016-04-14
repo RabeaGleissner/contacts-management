@@ -1,5 +1,3 @@
-require 'contact_creator'
-
 class App
   attr_reader :contacts
 
