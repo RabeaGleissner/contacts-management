@@ -1,15 +1,16 @@
 class FakeUi
-  attr_reader :display_contacts_was_called, :count_menu_calls
+  attr_reader :display_contacts_was_called, :menu_calls_count
 
-  def initialize(menu_option)
-    @menu_option = menu_option
+  def initialize(menu_options, continue_choice)
+    @menu_options = menu_options
+    @continue_choice = continue_choice
     @display_contacts_was_called = false
-    @count_menu_calls = 0
+    @menu_calls_count = 0
   end
 
   def menu(options)
-    @count_menu_calls += 1
-    menu_option.pop
+    @menu_calls_count += 1
+    @menu_options.pop
   end
 
   def get_contact_details(field)
@@ -27,10 +28,10 @@ class FakeUi
   end
 
   def continue?
-    [true, false].pop
+    continue_choice.shift
   end
 
   private
 
-  attr_reader :menu_option
+  attr_reader :menu_option, :continue_choice
 end
