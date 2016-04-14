@@ -53,4 +53,10 @@ describe Ui do
      ui.display_all([CONTACT_1, CONTACT_2])
      expect(output.string).to eq "#{CLEAR_SCREEN}\nFirst name: Jon\nLast name: Doe\nEmail: jon@123.de\nMobile number: 00000\nTwitter: @jon\n\e[H\e[2J\nFirst name: Jane\nLast name: Dill\nEmail: jane@123.de\nMobile number: 11111\nTwitter: @jane\n"
    end
+
+   it "displays a message if there are no contacts to display" do
+     ui = Ui.new(input, output)
+     ui.display_all([])
+     expect(output.string).to eq "Sorry, there are no contacts to display!\n"
+   end
 end

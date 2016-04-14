@@ -18,7 +18,11 @@ class Ui
   end
 
   def display_all(contacts)
-    contacts.each {|contact| display(contact)}
+    if contacts.length >= 1
+      contacts.each {|contact| display(contact)}
+    else
+      output.puts "Sorry, there are no contacts to display!"
+    end
   end
 
   def display(contact)

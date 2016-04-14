@@ -5,7 +5,7 @@ class App
 
   def initialize(ui)
     @ui = ui
-    @contacts = [{:first_name=>"Jon", :last_name=>"Doe", :email=>"jon@123.de", :mobile_number=>"00000", :twitter=>"@jon"}]
+    @contacts = []
   end
 
   FIELDS = [:first_name, :last_name, :email, :mobile_number, :twitter]
