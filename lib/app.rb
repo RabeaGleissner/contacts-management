@@ -12,7 +12,7 @@ class App
   def run
     option = ui.menu
     if option == 1
-      ContactCreator.new.create(ui.get_contact_details(FIELDS))
+      ui.get_contact_details(FIELDS)
     end
   end
 end
