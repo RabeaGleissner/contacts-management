@@ -34,13 +34,27 @@ class Ui
     new_contact = {}
     output.puts "#{CLEAR_SCREEN}"
     fields.each do |field_name|
-      output.print "#{format_for_display(field_name)}: "
-      new_contact[field_name] = input.gets.chomp
+      new_contact[field_name] = details_for(field_name)
     end
     new_contact
   end
 
   private
+
+  def details_for(field_name)
+    output.print "#{format_for_display(field_name)}: "
+    get_data_for_field(field_name)
+  end
+
+  def get_data_for_field(field_name)
+    user_input = input.gets.chomp
+    if user_input == ""
+      output.puts "#{CLEAR_SCREEN}\nEach field is required. Please enter the #{format_for_display(field_name).downcase}"
+      details_for(field_name)
+    else
+      user_input
+    end
+  end
 
   def display(contact)
     contact.each do |field, entry|

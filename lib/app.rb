@@ -6,7 +6,7 @@ class App
     @contacts = []
   end
 
-  FIELDS = [:first_name, :last_name, :email, :mobile_number, :twitter]
+  FIELDS = [:first_name, :last_name, :email_address, :mobile_number, :twitter_handle]
   MENU_OPTIONS = {
     1 => "Create contact",
     2 => "List all contacts"

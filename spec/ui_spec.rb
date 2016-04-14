@@ -36,13 +36,13 @@ describe Ui do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("Jon", "Doe", "test@121.de", "093383", "@jon")
      ui.get_contact_details(FIELDS)
-     expect(output.string).to eq "#{CLEAR_SCREEN}\nFirst name: Last name: Email: Mobile number: Twitter: "
+     expect(output.string).to eq "#{CLEAR_SCREEN}\nFirst name: Last name: Email address: Mobile number: Twitter handle: "
    end
 
    it "returns contact details entered by a user" do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("Jon", "Doe", "test@121.de", "093383", "@jon")
-     expect(ui.get_contact_details(FIELDS)).to eq ({:first_name=>"Jon", :last_name=>"Doe", :email=>"test@121.de", :mobile_number=>"093383", :twitter=>"@jon"})
+     expect(ui.get_contact_details(FIELDS)).to eq ({:first_name=>"Jon", :last_name=>"Doe", :email_address=>"test@121.de", :mobile_number=>"093383", :twitter_handle=>"@jon"})
    end
 
    it "displays all contacts" do
@@ -74,5 +74,12 @@ describe Ui do
      allow(ui.input).to receive(:gets).and_return("invalid", "n")
      ui.continue?
      expect(output.string).to eq (("\nWould you like to continue? (y\\n)\n") * 2)
+   end
+
+   it "displays error message if user tries to input an empty field" do
+     ui = Ui.new(input, output)
+     allow(ui.input).to receive(:gets).and_return("", "Jon", "D", "test@121.de", "12345", "@jon")
+     ui.get_contact_details(FIELDS)
+     expect(output.string).to include "Each field is required. Please enter "
    end
 end
