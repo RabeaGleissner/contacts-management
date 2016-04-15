@@ -1,3 +1,5 @@
+require 'finder'
+
 class App
   attr_reader :contacts
 
@@ -22,13 +24,19 @@ class App
       elsif option == 2
         ui.display_all(contacts)
       else
-        ui.ask_for_search_keyword(FIELDS.first)
+        display_found_contact
       end
       break if user_quits?
     end
   end
 
+
   private
+
+  def display_found_contact
+    contacts_found = Finder.new(ui, contacts).find_by(FIELDS.first)
+    ui.display_all(contacts_found)
+  end
 
   def user_quits?
     !ui.continue?

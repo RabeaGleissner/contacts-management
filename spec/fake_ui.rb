@@ -1,7 +1,7 @@
 class FakeUi
   attr_reader :display_all_was_called, :menu_calls_count, :search_action_was_called
 
-  def initialize(chosen_actions, continue_choice)
+  def initialize(chosen_actions = [1], continue_choice = [false])
     @chosen_actions = chosen_actions
     @continue_choice = continue_choice
     @display_all_was_called = false
@@ -34,6 +34,7 @@ class FakeUi
 
   def ask_for_search_keyword(word)
     @search_action_was_called = true
+    "Jane"
   end
 
   private
