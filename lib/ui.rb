@@ -7,10 +7,10 @@ class Ui
     @output = output
   end
 
-  def menu(options)
+  def display_menu(options)
     output.puts "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n"
     options.each do |number, option|
-      output.puts "#{number} - #{option}"
+      output.puts "#{number} - #{format_for_display(option)}"
     end
     output.print"\n---> "
     get_menu_option(options)
@@ -94,7 +94,7 @@ class Ui
     if valid_menu_option?(user_input, options)
       user_input.to_i
     else
-      menu(options)
+      display_menu(options)
     end
   end
 

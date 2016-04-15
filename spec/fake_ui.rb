@@ -1,7 +1,7 @@
 class FakeUi
   attr_reader :display_all_was_called, :menu_calls_count, :search_action_was_called
 
-  def initialize(chosen_actions = [1], continue_choice = [false])
+  def initialize(chosen_actions = [2], continue_choice = [false])
     @chosen_actions = chosen_actions
     @continue_choice = continue_choice
     @display_all_was_called = false
@@ -9,7 +9,7 @@ class FakeUi
     @search_action_was_called = false
   end
 
-  def menu(options)
+  def display_menu(options)
     @menu_calls_count += 1
     chosen_actions.pop
   end

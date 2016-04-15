@@ -18,19 +18,19 @@ describe Ui do
 
   it "displays the main menu" do
     ui = Ui.new(StringIO.new("2"), output)
-    ui.menu(OPTIONS)
+    ui.display_menu(OPTIONS)
     expect(output.string).to eq MENU_DISPLAY
   end
 
   it "gets user's menu option choice" do
     ui = Ui.new(StringIO.new("2"), output)
-    expect(ui.menu(OPTIONS)).to eq 2
+    expect(ui.display_menu(OPTIONS)).to eq 2
   end
 
    it "shows menu options again on invalid input" do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("n", "2")
-     ui.menu(OPTIONS)
+     ui.display_menu(OPTIONS)
      expect(output.string).to eq (MENU_DISPLAY * 2)
    end
 
