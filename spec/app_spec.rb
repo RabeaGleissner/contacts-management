@@ -26,6 +26,14 @@ describe App do
     expect(fake_ui.menu_calls_count).to eq 2
   end
 
+  it "searches for a specific contact" do
+    continue= [false]
+    fake_ui = FakeUi.new([choose("Find contact by first name")], continue)
+    app = App.new(fake_ui)
+    app.run
+    expect(fake_ui.search_action_was_called).to be true
+  end
+
   private
 
   def choose(action)

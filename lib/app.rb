@@ -22,7 +22,7 @@ class App
       elsif option == 2
         ui.display_all(contacts)
       else
-
+        ui.ask_for_search_keyword(FIELDS.first)
       end
       break if user_quits?
     end

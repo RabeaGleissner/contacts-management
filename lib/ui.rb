@@ -39,7 +39,22 @@ class Ui
     new_contact
   end
 
+  def ask_for_search_keyword(keyword)
+    output.puts "\nEnter #{format_for_display(keyword).downcase}:"
+    get_search_keyword(keyword)
+  end
+
   private
+
+  def get_search_keyword(keyword)
+    user_input = input.gets.chomp
+    if user_input == ""
+      output.puts "#{CLEAR_SCREEN}\nPlease provide the search keyword: "
+      ask_for_search_keyword(keyword)
+    else
+      user_input
+    end
+  end
 
   def details_for(field_name)
     output.print "#{format_for_display(field_name)}: "

@@ -11,6 +11,7 @@ describe Ui do
   CONTACT_1 = {:first_name=>"Jon", :last_name=>"Doe", :email=>"jon@123.de", :mobile_number=>"00000", :twitter=>"@jon"}
   CONTACT_2 = {:first_name=>"Jane", :last_name=>"Dill", :email=>"jane@123.de", :mobile_number=>"11111", :twitter=>"@jane"}
   MENU_DISPLAY = "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n3 - Find contact by first name\n\n---> "
+  CONTINUE_QUESTION = "\nWould you like to continue? (y\\n)\n"
   OPTIONS = App::MENU_OPTIONS
   FIELDS = App::FIELDS
 
@@ -61,7 +62,7 @@ describe Ui do
    it "asks the user if they want to continue" do
      ui = Ui.new(StringIO.new("n"), output)
      ui.continue?
-     expect(output.string).to eq "\nWould you like to continue? (y\\n)\n"
+     expect(output.string).to eq CONTINUE_QUESTION
    end
 
    it "gets the user's choice for continuing or not" do
@@ -73,7 +74,7 @@ describe Ui do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("invalid", "n")
      ui.continue?
-     expect(output.string).to eq (("\nWould you like to continue? (y\\n)\n") * 2)
+     expect(output.string).to eq (CONTINUE_QUESTION * 2)
    end
 
    it "displays error message if user tries to input an empty field" do
@@ -81,5 +82,23 @@ describe Ui do
      allow(ui.input).to receive(:gets).and_return("", "Jon", "D", "test@121.de", "12345", "@jon")
      ui.get_contact_details(FIELDS)
      expect(output.string).to include "Each field is required. Please enter "
+   end
+
+   it "prompts the user to enter the first name to search a contact" do
+     ui = Ui.new(StringIO.new("Jon"), output)
+     ui.ask_for_search_keyword(:first_name)
+     expect(output.string).to eq "\nEnter first name:\n"
+   end
+
+   it "returns the name that the user wants to search for" do
+     ui = Ui.new(StringIO.new("Jon"), output)
+     expect(ui.ask_for_search_keyword(:first_name)).to eq "Jon"
+   end
+
+   it "prompts for search keyword again if user leaves it blank" do
+     ui = Ui.new(input, output)
+     allow(ui.input).to receive(:gets).and_return("", "Jon")
+     ui.ask_for_search_keyword(:first_name)
+     expect(output.string).to include "Please provide the search keyword: "
    end
 end
