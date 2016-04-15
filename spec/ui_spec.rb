@@ -10,6 +10,7 @@ describe Ui do
   CLEAR_SCREEN = "\e[H\e[2J"
   CONTACT_1 = {:first_name=>"Jon", :last_name=>"Doe", :email=>"jon@123.de", :mobile_number=>"00000", :twitter=>"@jon"}
   CONTACT_2 = {:first_name=>"Jane", :last_name=>"Dill", :email=>"jane@123.de", :mobile_number=>"11111", :twitter=>"@jane"}
+  MENU_DISPLAY = "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n3 - Find contact by first name\n\n---> "
   OPTIONS = App::MENU_OPTIONS
   FIELDS = App::FIELDS
 
@@ -17,7 +18,7 @@ describe Ui do
   it "displays the main menu" do
     ui = Ui.new(StringIO.new("2"), output)
     ui.menu(OPTIONS)
-    expect(output.string).to eq "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n\n---> "
+    expect(output.string).to eq MENU_DISPLAY
   end
 
   it "gets user's menu option choice" do
@@ -29,7 +30,7 @@ describe Ui do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("n", "2")
      ui.menu(OPTIONS)
-     expect(output.string).to eq (("#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n\n---> ") * 2)
+     expect(output.string).to eq (MENU_DISPLAY * 2)
    end
 
    it "gets input for all fields of a contact" do
@@ -58,8 +59,7 @@ describe Ui do
    end
 
    it "asks the user if they want to continue" do
-     ui = Ui.new(input, output)
-     allow(ui.input).to receive(:gets).and_return("n")
+     ui = Ui.new(StringIO.new("n"), output)
      ui.continue?
      expect(output.string).to eq "\nWould you like to continue? (y\\n)\n"
    end

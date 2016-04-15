@@ -9,7 +9,8 @@ class App
   FIELDS = [:first_name, :last_name, :email_address, :mobile_number, :twitter_handle]
   MENU_OPTIONS = {
     1 => "Create contact",
-    2 => "List all contacts"
+    2 => "List all contacts",
+    3 => "Find contact by first name"
   }
 
   def run
@@ -18,8 +19,10 @@ class App
       option = ui.menu(MENU_OPTIONS)
       if option == 1
         contacts << ui.get_contact_details(FIELDS)
-      else
+      elsif option == 2
         ui.display_all(contacts)
+      else
+
       end
       break if user_quits?
     end
