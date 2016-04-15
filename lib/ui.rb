@@ -30,13 +30,9 @@ class Ui
     get_continue_request
   end
 
-  def get_contact_details(fields)
-    new_contact = {}
-    output.puts "#{CLEAR_SCREEN}"
-    fields.each do |field_name|
-      new_contact[field_name] = details_for(field_name)
-    end
-    new_contact
+  def details_for(field_name)
+    output.print "#{format_for_display(field_name)}: "
+    get_data_for_field(field_name)
   end
 
   def ask_for_search_keyword(keyword)
@@ -56,10 +52,6 @@ class Ui
     end
   end
 
-  def details_for(field_name)
-    output.print "#{format_for_display(field_name)}: "
-    get_data_for_field(field_name)
-  end
 
   def get_data_for_field(field_name)
     user_input = input.gets.chomp

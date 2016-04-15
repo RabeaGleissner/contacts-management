@@ -1,4 +1,5 @@
 require 'finder'
+require 'creator'
 
 class App
   attr_reader :contacts
@@ -27,7 +28,7 @@ class App
   def menu
     chosen_activity = users_response_to_menu
     if wish_to_create_contact(chosen_activity)
-      contacts << ui.get_contact_details(FIELDS)
+      contacts << Creator.new(ui, FIELDS).create
     elsif wish_to_list_contacts(chosen_activity)
       ui.display_all(contacts)
     else

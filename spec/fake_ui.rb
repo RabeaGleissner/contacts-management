@@ -1,9 +1,10 @@
 class FakeUi
   attr_reader :display_all_was_called, :menu_calls_count, :search_action_was_called
 
-  def initialize(chosen_actions = [2], continue_choice = [false])
+  def initialize(chosen_actions = [2], continue_choice = [false], contact_details = [])
     @chosen_actions = chosen_actions
     @continue_choice = continue_choice
+    @contact_details = contact_details
     @display_all_was_called = false
     @menu_calls_count = 0
     @search_action_was_called = false
@@ -14,14 +15,8 @@ class FakeUi
     chosen_actions.pop
   end
 
-  def get_contact_details(field)
-    {
-     :first_name=>"Jon",
-     :last_name=>"Doe",
-     :email=>"jon@123.de",
-     :mobile_number=>"00000",
-     :twitter=>"@jon"
-    }
+  def details_for(field)
+    contact_details.shift
   end
 
   def display_all(contacts)
@@ -39,5 +34,5 @@ class FakeUi
 
   private
 
-  attr_reader :chosen_actions, :continue_choice
+  attr_reader :chosen_actions, :continue_choice, :contact_details
 end
