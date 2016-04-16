@@ -13,7 +13,8 @@ class App
   MENU_OPTIONS = {
     1 => :create_contact,
     2 => :list_all_contacts,
-    3 => :find_contact_by_first_name
+    3 => :find_contact_by_first_name,
+    4 => :exit_application
   }
 
   def run
