@@ -88,4 +88,10 @@ describe Ui do
      ui.ask_for_search_keyword(:first_name)
      expect(output.string).to include "Please provide the search keyword: "
    end
+
+   it "confirms the creation of a contact" do
+     ui = Ui.new(input, output)
+     ui.confirm_contact_creation
+     expect(output.string).to eq "\n\nContact created!\n"
+   end
 end

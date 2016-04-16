@@ -1,15 +1,17 @@
 require 'spec_helper'
 require 'creator'
 require 'fake_ui'
-require 'App'
+require 'app'
 
 describe Creator do
 
   it "creates a new contact" do
     continue = false
-    fake_ui = FakeUi.new(choose(:create_contact), continue, ["Jane", "Dill", "jane@123.de", "11111", "@jane"])
+    fake_ui = FakeUi.new(choose(:create_contact), continue,
+                         ["Jane", "Dill", "jane@123.de", "11111", "@jane"])
     creator = Creator.new(fake_ui, App::FIELDS)
-    expect(creator.create).to eq({ 
+
+    expect(creator.create_contact).to eq({
       :first_name=>"Jane",
       :last_name=>"Dill",
       :email_address=>"jane@123.de",

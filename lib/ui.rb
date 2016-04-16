@@ -40,6 +40,10 @@ class Ui
     get_search_keyword(keyword)
   end
 
+  def confirm_contact_creation
+    output.puts "\n\nContact created!"
+  end
+
   private
 
   def get_search_keyword(keyword)
@@ -51,7 +55,6 @@ class Ui
       user_input
     end
   end
-
 
   def get_data_for_field(field_name)
     user_input = input.gets.chomp

@@ -27,6 +27,9 @@ class FakeUi
     continue_choice.shift
   end
 
+  def confirm_contact_creation
+  end
+
   def ask_for_search_keyword(word)
     @search_action_was_called = true
     "Jane"

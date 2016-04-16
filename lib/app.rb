@@ -28,12 +28,18 @@ class App
   def menu
     chosen_activity = users_response_to_menu
     if wish_to_create_contact(chosen_activity)
-      contacts << Creator.new(ui, FIELDS).create
+      contacts << Creator.new(ui, FIELDS).create_contact
     elsif wish_to_list_contacts(chosen_activity)
       ui.display_all(contacts)
-    else
+    elsif find_contact(chosen_activity)
       display_found_contact
+    else
+      Kernel.exit
     end
+  end
+
+  def find_contact(chosen_activity)
+    chosen_activity == MENU_OPTIONS.key(:find_contact_by_first_name)
   end
 
   def wish_to_list_contacts(chosen_activity)
