@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'app'
 require 'fake_ui'
+require 'fake_kernel'
 
 describe App do
   it "creates new contact" do
@@ -29,6 +30,14 @@ describe App do
     app = App.new(fake_ui)
     app.run
     expect(fake_ui.search_action_was_called).to be true
+  end
+
+  it "exits application" do
+    fake_kernel = FakeKernel.new
+    fake_ui = FakeUi.new([choose(:exit_application)])
+    app = App.new(fake_ui, fake_kernel)
+    app.run
+    expect(fake_kernel.exit_was_called).to be true
   end
 
   private

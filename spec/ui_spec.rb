@@ -10,7 +10,7 @@ describe Ui do
   CLEAR_SCREEN = "\e[H\e[2J"
   CONTACT_1 = {:first_name=>"Jon", :last_name=>"Doe", :email=>"jon@123.de", :mobile_number=>"00000", :twitter=>"@jon"}
   CONTACT_2 = {:first_name=>"Jane", :last_name=>"Dill", :email=>"jane@123.de", :mobile_number=>"11111", :twitter=>"@jane"}
-  MENU_DISPLAY = "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n3 - Find contact by first name\n\n---> "
+  MENU_DISPLAY = "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n3 - Find contact by first name\n4 - Exit application\n\n---> "
   CONTINUE_QUESTION = "\nWould you like to continue? (y\\n)\n"
   OPTIONS = App::MENU_OPTIONS
   FIELDS = App::FIELDS

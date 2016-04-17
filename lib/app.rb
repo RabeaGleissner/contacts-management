@@ -4,9 +4,10 @@ require 'creator'
 class App
   attr_reader :contacts
 
-  def initialize(ui)
+  def initialize(ui, kernel = Kernel)
     @ui = ui
     @contacts = []
+    @kernel = kernel
   end
 
   FIELDS = [:first_name, :last_name, :email_address, :mobile_number, :twitter_handle]
@@ -26,6 +27,8 @@ class App
 
   private
 
+  attr_reader :ui, :kernel
+
   def menu
     chosen_activity = users_response_to_menu
     if wish_to_create_contact(chosen_activity)
@@ -35,7 +38,7 @@ class App
     elsif find_contact(chosen_activity)
       display_found_contact
     else
-      Kernel.exit
+      kernel.exit
     end
   end
 
@@ -63,6 +66,4 @@ class App
   def user_quits?
     !ui.continue?
   end
-
-  attr_reader :ui
 end
