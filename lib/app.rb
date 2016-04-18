@@ -59,8 +59,7 @@ class App
   end
 
   def display_found_contact
-    contacts_found = Finder.new(ui, contacts).find_by(FIELDS.first)
-    ui.display_all(contacts_found)
+    Finder.new(ui, contacts).find_by(FIELDS.first)
   end
 
   def user_quits?

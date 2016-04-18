@@ -7,7 +7,7 @@ class Finder
 
   def find_by(search_field)
     keyword = ui.ask_for_search_keyword(search_field)
-    search_result(search_field, keyword)
+    ui.display_all(search_result(search_field, keyword))
   end
 
   def search_result(search_field, keyword)
