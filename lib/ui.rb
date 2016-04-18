@@ -21,7 +21,7 @@ class Ui
   def display_all(contacts)
     printer.print("")
     if contacts.length >= 1
-      contacts.each {|contact| display(contact)}
+      contacts.each { |contact| display(contact)}
     else
       output.puts "Sorry, there are no contacts to display!"
     end

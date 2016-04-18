@@ -38,13 +38,13 @@ describe Ui do
    it "displays all contacts" do
      ui = Ui.new(input, output)
      ui.display_all([CONTACT_1, CONTACT_2])
-     expect(output.string).to eq "#{CLEAR_SCREEN}\nFirst name: Jon\nLast name: Doe\nEmail: jon@123.de\nMobile number: 00000\nTwitter: @jon\n---\nFirst name: Jane\nLast name: Dill\nEmail: jane@123.de\nMobile number: 11111\nTwitter: @jane\n---\n"
+     expect(output.string).to include "\nFirst name: Jon\nLast name: Doe\nEmail: jon@123.de\nMobile number: 00000\nTwitter: @jon\n---\nFirst name: Jane\nLast name: Dill\nEmail: jane@123.de\nMobile number: 11111\nTwitter: @jane\n---\n"
    end
 
    it "displays a message if there are no contacts to display" do
      ui = Ui.new(input, output)
      ui.display_all([])
-     expect(output.string).to eq "#{CLEAR_SCREEN}\nSorry, there are no contacts to display!\n"
+     expect(output.string).to include "\nSorry, there are no contacts to display!\n"
    end
 
    it "asks the user if they want to continue" do
