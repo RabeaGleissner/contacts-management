@@ -1,14 +1,16 @@
+require 'clear_screen_printer'
+
 class Ui
   attr_reader :input, :output
-  CLEAR_SCREEN = "\e[H\e[2J"
 
   def initialize(input, output)
     @input = input
     @output = output
+    @printer = ClearScreenPrinter.new(output)
   end
 
   def display_menu(options)
-    output.puts "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n"
+    printer.print(" :::Contacts management::: \n\nPlease choose a menu option:\n\n")
     options.each do |number, option|
       output.puts "#{number} - #{format_for_display(option)}"
     end
@@ -17,7 +19,7 @@ class Ui
   end
 
   def display_all(contacts)
-    output.puts "#{CLEAR_SCREEN}"
+    printer.print("")
     if contacts.length >= 1
       contacts.each {|contact| display(contact)}
     else
@@ -46,10 +48,12 @@ class Ui
 
   private
 
+  attr_reader :printer
+
   def get_search_keyword(keyword)
     user_input = input.gets.chomp
     if user_input == ""
-      output.puts "#{CLEAR_SCREEN}\nPlease provide the search keyword: "
+      printer.print("\nPlease provide the search keyword: ")
       ask_for_search_keyword(keyword)
     else
       user_input

@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'stringio'
 require 'ui'
+require 'clear_screen_printer'
 require 'app'
 
 describe Ui do
