@@ -11,13 +11,7 @@ class Finder
   end
 
   def search_result(search_field, keyword)
-    contacts_found = []
-    contacts.each do |contact|
-      if contact[search_field] == keyword
-        contacts_found << contact
-      end
-    end
-    contacts_found
+    contacts.select { |contact| contact[search_field] == keyword}
   end
 
   private
