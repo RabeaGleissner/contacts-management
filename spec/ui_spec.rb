@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'stringio'
 require 'ui'
 require 'clear_screen_printer'
-require 'app'
+require 'creator'
 require 'test_data'
 
 describe Ui do
@@ -13,7 +13,7 @@ describe Ui do
   MENU_DISPLAY = "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n3 - Find contact by first name\n4 - Exit application\n\n---> "
   CONTINUE_QUESTION = "\nWould you like to continue? (y\\n)\n"
   OPTIONS = App::MENU_OPTIONS
-  FIELDS = App::FIELDS
+  FIELDS = Creator::FIELDS
 
 
   it "displays the main menu" do

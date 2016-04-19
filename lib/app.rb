@@ -12,7 +12,6 @@ class App
     @contacts = []
   end
 
-  FIELDS = [:first_name, :last_name, :email_address, :mobile_number, :twitter_handle]
   MENU_OPTIONS = {
     1 => :create_contact,
     2 => :list_all_contacts,
@@ -34,7 +33,7 @@ class App
   def menu
     chosen_activity = users_response_to_menu
     if wish_to_create_contact(chosen_activity)
-      Creator.new(ui, FIELDS, store).create_contact
+      Creator.new(ui, store).create_contact
     elsif wish_to_list_contacts(chosen_activity)
       ui.display_all(store.read_from_file)
     elsif find_contact(chosen_activity)
@@ -61,7 +60,7 @@ class App
   end
 
   def display_found_contact
-    Finder.new(ui, store).find_by(FIELDS.first)
+    Finder.new(ui, store).find_by(Creator::FIELDS.first)
   end
 
   def user_quits?

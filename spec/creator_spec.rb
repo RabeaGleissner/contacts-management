@@ -11,7 +11,7 @@ describe Creator do
     store = MockStore.new
     fake_ui = FakeUi.new(choose(:create_contact), continue,
                          ["Jane", "Dill", "jane@123.de", "11111", "@jane"])
-    creator = Creator.new(fake_ui, App::FIELDS, store)
+    creator = Creator.new(fake_ui, store)
     creator.create_contact
     expect(store.contact).to eq(TestData::JANE_DILL)
   end

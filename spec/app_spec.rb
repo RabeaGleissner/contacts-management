@@ -11,7 +11,7 @@ describe App do
   it "creates new contact" do
     app = App.new(FakeUi.new([choose(:create_contact)]), mock_store)
     app.run
-    expect(mock_store.contact.length).to eq App::FIELDS.length
+    expect(mock_store.contact.length).to eq Creator::FIELDS.length
   end
 
   it "displays existing contacts" do
