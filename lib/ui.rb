@@ -20,7 +20,7 @@ class Ui
 
   def display_all(contacts)
     printer.print("")
-    if contacts.length >= 1
+    if contacts_exist?(contacts)
       contacts.each { |contact| display(contact)}
     else
       output.puts "Sorry, there are no contacts to display!"
@@ -50,6 +50,10 @@ class Ui
 
   attr_reader :printer
 
+  def contacts_exist?(contacts)
+    contacts != false && contacts.length >= 1
+  end
+
   def get_search_keyword(keyword)
     user_input = input.gets.chomp
     if user_input == ""
@@ -63,7 +67,7 @@ class Ui
   def get_data_for_field(field_name)
     user_input = input.gets.chomp
     if user_input == ""
-      output.puts "#{CLEAR_SCREEN}\nEach field is required. Please enter the #{format_for_display(field_name).downcase}"
+      printer.print("\nEach field is required. Please enter the #{format_for_display(field_name).downcase}")
       details_for(field_name)
     else
       user_input
