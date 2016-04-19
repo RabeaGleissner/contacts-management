@@ -92,8 +92,13 @@ class Ui
     elsif decision == "n"
       false
     else
+      wrong_input_error
       continue?
     end
+  end
+
+  def wrong_input_error
+    printer.print("Please provide a valid option.")
   end
 
   def get_menu_option(options)
