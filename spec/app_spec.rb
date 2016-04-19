@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'mock_store'
+require 'file_store_mocks/mock_store'
 require 'app'
 require 'fake_ui'
 require 'fake_kernel'

@@ -10,6 +10,5 @@ class MockStore
   end
 
   def read_from_file
-
   end
 end

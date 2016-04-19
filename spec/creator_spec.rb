@@ -3,7 +3,7 @@ require 'creator'
 require 'fake_ui'
 require 'app'
 require 'test_data'
-require 'mock_store'
+require 'file_store_mocks/mock_store'
 
 describe Creator do
   it "creates a new contact" do

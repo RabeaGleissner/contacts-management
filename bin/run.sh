@@ -3,4 +3,5 @@ $LOAD_PATH << File.expand_path("../../lib", __FILE__)
 
 require 'ui'
 require 'app'
-App.new(Ui.new($stdin, $stdout)).run
+require 'store'
+App.new(Ui.new($stdin, $stdout), Store.new).run

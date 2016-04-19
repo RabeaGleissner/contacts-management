@@ -1,9 +1,9 @@
 require 'spec_helper'
 require 'store'
 require 'test_data'
-require 'mock_file'
-require 'mock_file_system'
-require 'mock_parser'
+require 'file_store_mocks/mock_file'
+require 'file_store_mocks/mock_file_system'
+require 'file_store_mocks/mock_parser'
 
 describe Store do
   it "persists data as an array in yaml format" do

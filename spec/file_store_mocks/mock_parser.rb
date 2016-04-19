@@ -7,12 +7,7 @@ class MockParser
   end
 
   def load_file(file_name)
-    contacts = []
-    yaml_array = mock_file.data
-    yaml_array.each do |string|
-      contacts << YAML.load(string)
-    end
-    contacts.flatten.reverse
+    mock_file.data.collect { |contact| YAML.load(contact)}.flatten.reverse
   end
 
   private

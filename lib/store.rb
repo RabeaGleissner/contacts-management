@@ -9,12 +9,11 @@ class Store
   end
 
   def persist(new_data)
-    contacts = []
     if contacts_exist?
       contacts = load_existing_contacts
       contacts << new_data
     else
-      contacts << new_data
+      contacts = [new_data]
     end
     contacts_file.open(FILE_NAME, "w"){ |file| file.write(contacts.to_yaml)}
   end
