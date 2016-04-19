@@ -9,11 +9,19 @@ class Store
   end
 
   def persist(data)
-    contacts_file.open(FILE_NAME, "w"){ |file| file.write(data.to_yaml)}
+    contacts = []
+    if !contacts_file.zero?(FILE_NAME)
+      contacts << read
+      contacts << data
+    else
+      contacts << data
+    end
+      contacts_file.open(FILE_NAME, "w"){ |file| file.write(contacts.to_yaml)}
   end
 
   def read
-    format_converter.load_file(FILE_NAME)
+    contacts = format_converter.load_file(FILE_NAME)
+    contacts
   end
 
   private

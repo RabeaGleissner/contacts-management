@@ -10,7 +10,7 @@ describe Store do
     mock_file = MockFile.new
     store = Store.new(MockFileSystem.new(mock_file))
     store.persist("contact data")
-    expect(mock_file.data).to eq "--- contact data\n...\n"
+    expect(mock_file.data).to eq "---\n- contact data\n"
   end
 
   it "reads data from a file" do
