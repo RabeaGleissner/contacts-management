@@ -9,8 +9,8 @@ describe Store do
   it "persists data as an array in yaml format" do
     mock_file = MockFile.new
     store = Store.new(MockFileSystem.new(mock_file))
-    store.persist(TestData::JON_DOE)
-    expect(mock_file.data).to eq ["---\n- :first_name: Jon\n  :last_name: Doe\n  :email_address: jon@123.de\n  :mobile_number: '00000'\n  :twitter_handle: \"@jon\"\n"]
+    store.persist("test data")
+    expect(mock_file.data).to eq ["---\n- test data\n"]
   end
 
   it "reads data from a file" do
