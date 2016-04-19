@@ -4,6 +4,7 @@ require 'ui'
 require 'clear_screen_printer'
 require 'creator'
 require 'test_data'
+require 'menu'
 
 describe Ui do
   let (:input) {StringIO.new}
@@ -12,7 +13,7 @@ describe Ui do
   CLEAR_SCREEN = "\e[H\e[2J"
   MENU_DISPLAY = "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n3 - Find contact by first name\n4 - Exit application\n\n---> "
   CONTINUE_QUESTION = "\nWould you like to continue? (y\\n)\n"
-  OPTIONS = App::MENU_OPTIONS
+  OPTIONS = Menu::OPTIONS
   FIELDS = Creator::FIELDS
 
 
