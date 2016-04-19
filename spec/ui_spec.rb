@@ -19,19 +19,19 @@ describe Ui do
 
   it "displays the main menu" do
     ui = Ui.new(StringIO.new("2"), output)
-    ui.display_menu(OPTIONS)
+    ui.users_selected_action(OPTIONS)
     expect(output.string).to eq MENU_DISPLAY
   end
 
   it "gets user's menu option choice" do
     ui = Ui.new(StringIO.new("2"), output)
-    expect(ui.display_menu(OPTIONS)).to eq 2
+    expect(ui.users_selected_action(OPTIONS)).to eq 2
   end
 
    it "shows menu options again on invalid input" do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("n", "2")
-     ui.display_menu(OPTIONS)
+     ui.users_selected_action(OPTIONS)
      expect(output.string).to eq (MENU_DISPLAY * 2)
    end
 
@@ -94,5 +94,11 @@ describe Ui do
      ui = Ui.new(input, output)
      ui.confirm_contact_creation
      expect(output.string).to eq "\n\nContact created!\n"
+   end
+
+   it "says goodbye after an interruption" do
+     ui = Ui.new(input, output)
+     ui.interruption_message
+     expect(output.string).to include "You interrupted the application."
    end
 end

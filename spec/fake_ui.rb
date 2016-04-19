@@ -12,7 +12,7 @@ class FakeUi
     @search_keyword = nil
   end
 
-  def display_menu(options)
+  def users_selected_action(options)
     @menu_calls_count += 1
     chosen_actions.pop
   end

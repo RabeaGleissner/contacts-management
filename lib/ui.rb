@@ -9,7 +9,7 @@ class Ui
     @printer = ClearScreenPrinter.new(output)
   end
 
-  def display_menu(options)
+  def users_selected_action(options)
     printer.print(" :::Contacts management::: \n\nPlease choose a menu option:\n\n")
     options.each do |number, option|
       output.puts "#{number} - #{format_for_display(option)}"
@@ -44,6 +44,10 @@ class Ui
 
   def confirm_contact_creation
     output.puts "\n\nContact created!"
+  end
+
+  def interruption_message
+    printer.print("You interrupted the application. Byyye!\n\n")
   end
 
   private
@@ -82,8 +86,8 @@ class Ui
   end
 
   def get_continue_request
-    decision = input.gets.chomp
-    if decision == "y"
+    decision = input.gets.chomp.downcase
+    if decision== "y"
       true
     elsif decision == "n"
       false
@@ -97,7 +101,7 @@ class Ui
     if valid_menu_option?(user_input, options)
       user_input.to_i
     else
-      display_menu(options)
+      users_selected_action(options)
     end
   end
 

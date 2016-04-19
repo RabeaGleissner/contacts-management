@@ -45,4 +45,27 @@ describe App do
     app.run
     expect(fake_kernel.exit_was_called).to be true
   end
+
+  it "catches exception when user interrupts with ctrl +c" do
+    interrupting_ui = InterruptingUi.new
+    app = App.new(Menu.new, interrupting_ui, mock_store)
+    app.run
+    expect(interrupting_ui.says_goodbye).to be true
+  end
+
+  class InterruptingUi
+    attr_reader :says_goodbye
+
+    def initialize
+      @says_goodbye = false
+    end
+
+    def users_selected_action(options)
+      raise Interrupt
+    end
+
+    def interruption_message
+      @says_goodbye = true
+    end
+  end
 end
