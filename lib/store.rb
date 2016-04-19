@@ -8,23 +8,30 @@ class Store
     @format_converter = format_converter
   end
 
-  def persist(data)
+  def persist(new_data)
     contacts = []
-    if !contacts_file.zero?(FILE_NAME)
-      contacts << read
-      contacts << data
+    if contacts_exist?
+      contacts = load_existing_contacts
+      contacts << new_data
     else
-      contacts << data
+      contacts << new_data
     end
-      contacts_file.open(FILE_NAME, "w"){ |file| file.write(contacts.to_yaml)}
+    contacts_file.open(FILE_NAME, "w"){ |file| file.write(contacts.to_yaml)}
   end
 
-  def read
-    contacts = format_converter.load_file(FILE_NAME)
-    contacts
+  def read_from_file
+    format_converter.load_file(FILE_NAME)
   end
 
   private
 
   attr_reader :contacts_file, :format_converter
+
+  def contacts_exist?
+    !contacts_file.zero?(FILE_NAME)
+  end
+
+  def load_existing_contacts
+    read_from_file.select{ |contact| contact}
+  end
 end

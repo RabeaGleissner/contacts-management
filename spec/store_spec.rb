@@ -6,17 +6,27 @@ require 'mock_file_system'
 require 'mock_converter'
 
 describe Store do
-  it "persists data in a file" do
+  it "persists data as an array in yaml format" do
     mock_file = MockFile.new
     store = Store.new(MockFileSystem.new(mock_file))
-    store.persist("contact data")
-    expect(mock_file.data).to eq "---\n- contact data\n"
+    store.persist(TestData::JON_DOE)
+    expect(mock_file.data).to eq ["---\n- :first_name: Jon\n  :last_name: Doe\n  :email_address: jon@123.de\n  :mobile_number: '00000'\n  :twitter_handle: \"@jon\"\n"]
   end
 
   it "reads data from a file" do
-    converter = MockConverter.new
-    store = Store.new(MockFileSystem.new(nil), converter)
-    store.read
-    expect(converter.load_file_was_called).to be true
+    mock_file = MockFile.new
+    converter = MockConverter.new(mock_file)
+    store = Store.new(MockFileSystem.new(mock_file), converter)
+    store.persist("testing")
+    expect(store.read_from_file).to eq ["testing"]
+  end
+
+  it "adds a contact to an existing contact" do
+    mock_file = MockFile.new
+    converter = MockConverter.new(mock_file)
+    store = Store.new(MockFileSystem.new(mock_file), converter)
+    store.persist(TestData::JON_DOE)
+    store.persist(TestData::JANE_MILLER)
+    expect(store.read_from_file).to eq([TestData::JON_DOE, TestData::JANE_MILLER])
   end
 end

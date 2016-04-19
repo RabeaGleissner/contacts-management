@@ -15,7 +15,6 @@ class Creator
     end
     ui.confirm_contact_creation
     store.persist(new_contact)
-    new_contact
   end
 
   private

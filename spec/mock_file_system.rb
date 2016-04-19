@@ -1,6 +1,4 @@
 class MockFileSystem
-  attr_reader :file
-
   def initialize(file)
     @file = file
   end
@@ -15,4 +13,8 @@ class MockFileSystem
   def zero?(file_name)
     true
   end
+
+  private
+
+  attr_reader :file
 end
