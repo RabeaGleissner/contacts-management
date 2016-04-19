@@ -1,8 +1,9 @@
 require 'yaml'
 
-class MockConverter
-  def initialize(mock_file)
+class MockParser
+  def initialize(mock_file, contact_data = nil)
     @mock_file = mock_file
+    @contact_data = contact_data
   end
 
   def load_file(file_name)
@@ -11,10 +12,10 @@ class MockConverter
     yaml_array.each do |string|
       contacts << YAML.load(string)
     end
-    contacts.flatten
+    contacts.flatten.reverse
   end
 
   private
 
-  attr_reader :mock_file
+  attr_reader :mock_file, :contact_data
 end

@@ -11,7 +11,7 @@ class MockFileSystem
   end
 
   def zero?(file_name)
-    true
+    file.data == nil
   end
 
   private

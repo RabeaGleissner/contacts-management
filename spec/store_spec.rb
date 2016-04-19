@@ -3,7 +3,7 @@ require 'store'
 require 'test_data'
 require 'mock_file'
 require 'mock_file_system'
-require 'mock_converter'
+require 'mock_parser'
 
 describe Store do
   it "persists data as an array in yaml format" do
@@ -15,7 +15,7 @@ describe Store do
 
   it "reads data from a file" do
     mock_file = MockFile.new
-    converter = MockConverter.new(mock_file)
+    converter = MockParser.new(mock_file)
     store = Store.new(MockFileSystem.new(mock_file), converter)
     store.persist("testing")
     expect(store.read_from_file).to eq ["testing"]
@@ -23,10 +23,10 @@ describe Store do
 
   it "adds a contact to an existing contact" do
     mock_file = MockFile.new
-    converter = MockConverter.new(mock_file)
+    converter = MockParser.new(mock_file, [TestData::JON_DOE])
     store = Store.new(MockFileSystem.new(mock_file), converter)
-    store.persist(TestData::JON_DOE)
     store.persist(TestData::JANE_MILLER)
+    store.persist(TestData::JON_DOE)
     expect(store.read_from_file).to eq([TestData::JON_DOE, TestData::JANE_MILLER])
   end
 end

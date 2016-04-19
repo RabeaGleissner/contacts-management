@@ -3,9 +3,9 @@ require 'yaml'
 class Store
   FILE_NAME = "contacts_store.yml"
 
-  def initialize(contacts_file = File, format_converter = YAML)
+  def initialize(contacts_file = File, parser = YAML)
     @contacts_file = contacts_file
-    @format_converter = format_converter
+    @parser = parser
   end
 
   def persist(new_data)
@@ -20,12 +20,12 @@ class Store
   end
 
   def read_from_file
-    format_converter.load_file(FILE_NAME)
+    parser.load_file(FILE_NAME)
   end
 
   private
 
-  attr_reader :contacts_file, :format_converter
+  attr_reader :contacts_file, :parser
 
   def contacts_exist?
     !contacts_file.zero?(FILE_NAME)

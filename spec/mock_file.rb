@@ -2,10 +2,10 @@ class MockFile
   attr_reader :data
 
   def initialize
-    @data = []
+    @data = nil
   end
 
   def write(data)
-    @data << data
+    @data = [data]
   end
 end
