@@ -1,25 +1,27 @@
+require 'clear_screen_printer'
+
 class Ui
   attr_reader :input, :output
-  CLEAR_SCREEN = "\e[H\e[2J"
 
   def initialize(input, output)
     @input = input
     @output = output
+    @printer = ClearScreenPrinter.new(output)
   end
 
-  def menu(options)
-    output.puts "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n"
+  def display_menu(options)
+    printer.print(" :::Contacts management::: \n\nPlease choose a menu option:\n\n")
     options.each do |number, option|
-      output.puts "#{number} - #{option}"
+      output.puts "#{number} - #{format_for_display(option)}"
     end
     output.print"\n---> "
     get_menu_option(options)
   end
 
   def display_all(contacts)
-    output.puts "#{CLEAR_SCREEN}"
+    printer.print("")
     if contacts.length >= 1
-      contacts.each {|contact| display(contact)}
+      contacts.each { |contact| display(contact)}
     else
       output.puts "Sorry, there are no contacts to display!"
     end
@@ -30,20 +32,32 @@ class Ui
     get_continue_request
   end
 
-  def get_contact_details(fields)
-    new_contact = {}
-    output.puts "#{CLEAR_SCREEN}"
-    fields.each do |field_name|
-      new_contact[field_name] = details_for(field_name)
-    end
-    new_contact
+  def details_for(field_name)
+    output.print "#{format_for_display(field_name)}: "
+    get_data_for_field(field_name)
+  end
+
+  def ask_for_search_keyword(keyword)
+    output.puts "\nEnter #{format_for_display(keyword).downcase}:"
+    get_search_keyword(keyword)
+  end
+
+  def confirm_contact_creation
+    output.puts "\n\nContact created!"
   end
 
   private
 
-  def details_for(field_name)
-    output.print "#{format_for_display(field_name)}: "
-    get_data_for_field(field_name)
+  attr_reader :printer
+
+  def get_search_keyword(keyword)
+    user_input = input.gets.chomp
+    if user_input == ""
+      printer.print("\nPlease provide the search keyword: ")
+      ask_for_search_keyword(keyword)
+    else
+      user_input
+    end
   end
 
   def get_data_for_field(field_name)
@@ -79,7 +93,7 @@ class Ui
     if valid_menu_option?(user_input, options)
       user_input.to_i
     else
-      menu(options)
+      display_menu(options)
     end
   end
 
