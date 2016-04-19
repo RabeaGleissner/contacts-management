@@ -1,8 +1,7 @@
 class Finder
-
-  def initialize(ui, contacts)
+  def initialize(ui, store)
     @ui = ui
-    @contacts = contacts
+    @store = store
   end
 
   def find_by(search_field)
@@ -11,10 +10,11 @@ class Finder
   end
 
   def search_result(search_field, keyword)
+    contacts = store.read_from_file
     contacts.select { |contact| contact[search_field] == keyword}
   end
 
   private
 
-  attr_reader :ui, :contacts
+  attr_reader :ui, :store
 end

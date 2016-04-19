@@ -1,7 +1,8 @@
 class MockStore
-  attr_reader :contact
+  attr_reader :persisted_data, :contact
 
-  def initialize
+  def initialize(persisted_data = nil)
+    @persisted_data = persisted_data
     @contact = nil
   end
 
@@ -10,5 +11,6 @@ class MockStore
   end
 
   def read_from_file
+    @persisted_data
   end
 end

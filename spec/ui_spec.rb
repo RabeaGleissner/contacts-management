@@ -37,7 +37,7 @@ describe Ui do
    it "displays all contacts" do
      ui = Ui.new(input, output)
      ui.display_all([TestData::JON_DOE, TestData::JANE_DILL])
-     expect(output.string).to eq "#{CLEAR_SCREEN}\nFirst name: Jon\nLast name: Doe\nEmail address: jon@123.de\nMobile number: 00000\nTwitter handle: @jon\n---\nFirst name: Jane\nLast name: Dill\nEmail address: jane@123.de\nMobile number: 11111\nTwitter handle: @jane\n---\n"
+     expect(output.string).to include "\nFirst name: Jon\nLast name: Doe\nEmail address: jon@123.de\nMobile number: 00000\nTwitter handle: @jon\n---\nFirst name: Jane\nLast name: Dill\nEmail address: jane@123.de\nMobile number: 11111\nTwitter handle: @jane\n---\n"
    end
 
    it "displays a message if there are no contacts to display" do

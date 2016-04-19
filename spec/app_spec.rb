@@ -1,8 +1,9 @@
 require 'spec_helper'
-require 'file_store_mocks/mock_store'
 require 'app'
 require 'fake_ui'
 require 'fake_kernel'
+require 'file_store_mocks/mock_store'
+require 'test_data'
 
 describe App do
   let (:mock_store) {MockStore.new}
@@ -30,7 +31,7 @@ describe App do
 
   it "searches for a specific contact" do
     fake_ui = FakeUi.new([choose(:find_contact_by_first_name)])
-    app = App.new(fake_ui, mock_store)
+    app = App.new(fake_ui, MockStore.new([TestData::JON_DOE]))
     app.run
     expect(fake_ui.search_action_was_called).to be true
   end
