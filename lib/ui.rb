@@ -10,44 +10,44 @@ class Ui
   end
 
   def users_selected_action(options)
-    printer.print(" :::Contacts management::: \n\nPlease choose a menu option:\n\n")
+    printer.puts_on_clear_screen(" :::Contacts management::: \n\nPlease choose a menu option:\n\n")
     options.each do |number, option|
-      output.puts "#{number} - #{format_for_display(option)}"
+      printer.puts "#{number} - #{format_for_display(option)}"
     end
-    output.print"\n---> "
+    printer.print"\n---> "
     get_menu_option(options)
   end
 
   def display_all(contacts)
-    printer.print("")
+    printer.puts_on_clear_screen("")
     if contacts_exist?(contacts)
       contacts.each { |contact| display(contact)}
     else
-      output.puts "Sorry, there are no contacts to display!"
+      printer.puts "Sorry, there are no contacts to display!"
     end
   end
 
   def continue?
-    output.puts "\nWould you like to continue? (y\\n)"
+    printer.puts "\nWould you like to continue? (y\\n)"
     get_continue_request
   end
 
   def details_for(field_name)
-    output.print "#{format_for_display(field_name)}: "
+    printer.print "#{format_for_display(field_name)}: "
     get_data_for_field(field_name)
   end
 
   def ask_for_search_keyword(keyword)
-    output.puts "\nEnter #{format_for_display(keyword).downcase}:"
+    printer.puts "\nEnter #{format_for_display(keyword).downcase}:"
     get_search_keyword(keyword)
   end
 
   def confirm_contact_creation
-    output.puts "\n\nContact created!"
+    printer.puts "\n\nContact created!"
   end
 
   def interruption_message
-    printer.print("You interrupted the application. Byyye!\n\n")
+    printer.puts_on_clear_screen("You interrupted the application. Byyye!\n\n")
   end
 
   private
@@ -61,7 +61,7 @@ class Ui
   def get_search_keyword(keyword)
     user_input = input.gets.chomp
     if user_input == ""
-      printer.print("\nPlease provide the search keyword: ")
+      printer.puts_on_clear_screen("\nPlease provide the search keyword: ")
       ask_for_search_keyword(keyword)
     else
       user_input
@@ -71,7 +71,7 @@ class Ui
   def get_data_for_field(field_name)
     user_input = input.gets.chomp
     if user_input == ""
-      printer.print("\nEach field is required. Please enter the #{format_for_display(field_name).downcase}")
+      printer.puts_on_clear_screen("\nEach field is required. Please enter the #{format_for_display(field_name).downcase}")
       details_for(field_name)
     else
       user_input
@@ -80,9 +80,9 @@ class Ui
 
   def display(contact)
     contact.each do |field, entry|
-      output.puts "#{format_for_display(field)}: #{entry}"
+      printer.puts "#{format_for_display(field)}: #{entry}"
     end
-    output.puts "---"
+    printer.puts "---"
   end
 
   def get_continue_request
@@ -98,7 +98,7 @@ class Ui
   end
 
   def wrong_input_error
-    printer.print("Please provide a valid option.")
+    printer.puts_on_clear_screen("Please provide a valid option.")
   end
 
   def get_menu_option(options)

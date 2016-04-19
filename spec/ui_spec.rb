@@ -62,7 +62,7 @@ describe Ui do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("invalid", "n")
      ui.continue?
-     expect(output.string).to eq (CONTINUE_QUESTION * 2)
+     expect(output.string).to eq (CONTINUE_QUESTION + "#{CLEAR_SCREEN}Please provide a valid option.\n" + CONTINUE_QUESTION)
    end
 
    it "displays error message if user tries to input an empty field" do
