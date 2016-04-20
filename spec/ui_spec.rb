@@ -2,8 +2,9 @@ require 'spec_helper'
 require 'stringio'
 require 'ui'
 require 'clear_screen_printer'
-require 'app'
+require 'creator'
 require 'test_data'
+require 'menu'
 
 describe Ui do
   let (:input) {StringIO.new}
@@ -12,25 +13,25 @@ describe Ui do
   CLEAR_SCREEN = "\e[H\e[2J"
   MENU_DISPLAY = "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n3 - Find contact by first name\n4 - Exit application\n\n---> "
   CONTINUE_QUESTION = "\nWould you like to continue? (y\\n)\n"
-  OPTIONS = App::MENU_OPTIONS
-  FIELDS = App::FIELDS
+  OPTIONS = Menu::OPTIONS
+  FIELDS = Creator::FIELDS
 
 
   it "displays the main menu" do
     ui = Ui.new(StringIO.new("2"), output)
-    ui.display_menu(OPTIONS)
+    ui.users_selected_action(OPTIONS)
     expect(output.string).to eq MENU_DISPLAY
   end
 
   it "gets user's menu option choice" do
     ui = Ui.new(StringIO.new("2"), output)
-    expect(ui.display_menu(OPTIONS)).to eq 2
+    expect(ui.users_selected_action(OPTIONS)).to eq 2
   end
 
    it "shows menu options again on invalid input" do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("n", "2")
-     ui.display_menu(OPTIONS)
+     ui.users_selected_action(OPTIONS)
      expect(output.string).to eq (MENU_DISPLAY * 2)
    end
 
@@ -61,10 +62,10 @@ describe Ui do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("invalid", "n")
      ui.continue?
-     expect(output.string).to eq (CONTINUE_QUESTION * 2)
+     expect(output.string).to eq (CONTINUE_QUESTION + "#{CLEAR_SCREEN}Please provide a valid option.\n" + CONTINUE_QUESTION)
    end
 
-   it "displays error message if user tries to input an empty field" do
+   it "displays an error message if a user tries to input an empty field" do
      ui = Ui.new(input, output)
      allow(ui.input).to receive(:gets).and_return("", "Jon")
      ui.details_for(:first_name)
@@ -93,5 +94,11 @@ describe Ui do
      ui = Ui.new(input, output)
      ui.confirm_contact_creation
      expect(output.string).to eq "\n\nContact created!\n"
+   end
+
+   it "says goodbye after an interruption" do
+     ui = Ui.new(input, output)
+     ui.interruption_message
+     expect(output.string).to include "You interrupted the application."
    end
 end

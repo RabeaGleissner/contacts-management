@@ -9,8 +9,8 @@ class Ui
     @printer = ClearScreenPrinter.new(output)
   end
 
-  def display_menu(options)
-    printer.print(" :::Contacts management::: \n\nPlease choose a menu option:\n\n")
+  def users_selected_action(options)
+    printer.puts_on_clear_screen(" :::Contacts management::: \n\nPlease choose a menu option:\n\n")
     options.each do |number, option|
       output.puts "#{number} - #{format_for_display(option)}"
     end
@@ -19,12 +19,17 @@ class Ui
   end
 
   def display_all(contacts)
-    printer.print("")
-    if contacts.length >= 1
+    printer.clear_screen
+    if contacts_exist?(contacts)
       contacts.each { |contact| display(contact)}
     else
-      output.puts "Sorry, there are no contacts to display!"
+      no_contacts_to_display_message
     end
+  end
+
+  def no_contacts_to_display_message
+    printer.puts_on_clear_screen("")
+    output.puts "Sorry, there are no contacts to display!"
   end
 
   def continue?
@@ -46,14 +51,22 @@ class Ui
     output.puts "\n\nContact created!"
   end
 
+  def interruption_message
+    printer.puts_on_clear_screen("You interrupted the application. Byyye!\n\n")
+  end
+
   private
 
   attr_reader :printer
 
+  def contacts_exist?(contacts)
+    contacts != false && contacts.length >= 1
+  end
+
   def get_search_keyword(keyword)
     user_input = input.gets.chomp
     if user_input == ""
-      printer.print("\nPlease provide the search keyword: ")
+      printer.puts_on_clear_screen("\nPlease provide the search keyword: ")
       ask_for_search_keyword(keyword)
     else
       user_input
@@ -63,7 +76,7 @@ class Ui
   def get_data_for_field(field_name)
     user_input = input.gets.chomp
     if user_input == ""
-      output.puts "#{CLEAR_SCREEN}\nEach field is required. Please enter the #{format_for_display(field_name).downcase}"
+      printer.puts_on_clear_screen("\nEach field is required. Please enter the #{format_for_display(field_name).downcase}")
       details_for(field_name)
     else
       user_input
@@ -78,14 +91,19 @@ class Ui
   end
 
   def get_continue_request
-    decision = input.gets.chomp
-    if decision == "y"
+    decision = input.gets.chomp.downcase
+    if decision== "y"
       true
     elsif decision == "n"
       false
     else
+      wrong_input_error
       continue?
     end
+  end
+
+  def wrong_input_error
+    printer.puts_on_clear_screen("Please provide a valid option.")
   end
 
   def get_menu_option(options)
@@ -93,7 +111,7 @@ class Ui
     if valid_menu_option?(user_input, options)
       user_input.to_i
     else
-      display_menu(options)
+      users_selected_action(options)
     end
   end
 
