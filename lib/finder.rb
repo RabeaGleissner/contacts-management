@@ -5,8 +5,7 @@ class Finder
   end
 
   def find_by(search_field)
-    keyword = ui.ask_for_search_keyword(search_field)
-    result = search_result(search_field, keyword)
+    result = search_result(search_field, ui.ask_for_search_keyword(search_field))
     if result
       ui.display_all(result)
     else
@@ -16,9 +15,7 @@ class Finder
 
   def search_result(search_field, keyword)
     contacts = store.read_from_file
-    if contacts
-      contacts.select { |contact| contact[search_field] == keyword}
-    end
+    contacts.select { |contact| contact[search_field] == keyword} if contacts
   end
 
   private

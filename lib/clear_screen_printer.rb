@@ -9,4 +9,8 @@ class ClearScreenPrinter
   def puts_on_clear_screen(text)
     output.puts "#{CLEAR_SCREEN}#{text}"
   end
+
+  def clear_screen
+    output.puts CLEAR_SCREEN
+  end
 end

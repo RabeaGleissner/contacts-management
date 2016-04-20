@@ -19,7 +19,7 @@ class Ui
   end
 
   def display_all(contacts)
-    printer.puts_on_clear_screen("")
+    printer.clear_screen
     if contacts_exist?(contacts)
       contacts.each { |contact| display(contact)}
     else
