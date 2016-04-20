@@ -20,7 +20,7 @@ describe App do
     fake_ui = FakeUi.new([menu.choose(:list_all_contacts)])
     app = App.new(menu, fake_ui, mock_store)
     app.run
-    expect(fake_ui.display_all_was_called).to be true
+    expect(fake_ui.displayed_all).to be true
   end
 
   it "shows menu options again when user wants to continue" do
@@ -35,7 +35,7 @@ describe App do
     fake_ui = FakeUi.new([menu.choose(:find_contact_by_first_name)])
     app = App.new(menu, fake_ui, MockStore.new([TestData::JON_DOE]))
     app.run
-    expect(fake_ui.search_action_was_called).to be true
+    expect(fake_ui.get_search_keyword).to be true
   end
 
   it "exits application" do

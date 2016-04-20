@@ -23,8 +23,13 @@ class Ui
     if contacts_exist?(contacts)
       contacts.each { |contact| display(contact)}
     else
-      printer.puts "Sorry, there are no contacts to display!"
+      no_contacts_to_display_message
     end
+  end
+
+  def no_contacts_to_display_message
+    printer.puts_on_clear_screen("")
+    printer.puts "Sorry, there are no contacts to display!"
   end
 
   def continue?

@@ -1,15 +1,16 @@
 class FakeUi
-  attr_reader :display_all_was_called, :menu_calls_count, :search_action_was_called, :contact_details_to_display
+  attr_reader :displayed_all, :menu_calls_count, :get_search_keyword, :contact_details_to_display, :display_no_contact_error
 
   def initialize(chosen_actions = [2], continue_choice = [false], contact_details = [])
     @chosen_actions = chosen_actions
     @continue_choice = continue_choice
     @contact_details = contact_details
-    @display_all_was_called = false
+    @displayed_all = false
     @menu_calls_count = 0
-    @search_action_was_called = false
+    @get_search_keyword = false
     @contact_details_to_display = nil
     @search_keyword = nil
+    @display_no_contact_error = false
   end
 
   def users_selected_action(options)
@@ -22,7 +23,7 @@ class FakeUi
   end
 
   def display_all(contacts)
-    @display_all_was_called = true
+    @displayed_all = true
     @contact_details_to_display = contacts
   end
 
@@ -34,12 +35,16 @@ class FakeUi
   end
 
   def ask_for_search_keyword(word)
-    @search_action_was_called = true
+    @get_search_keyword = true
     @search_keyword
   end
 
   def set_search_keyword(word)
     @search_keyword = word
+  end
+
+  def no_contacts_to_display_message
+    @display_no_contact_error = true
   end
 
   private

@@ -25,4 +25,13 @@ describe Finder do
     finder.find_by(:first_name)
     expect(fake_ui.contact_details_to_display).to eq [TestData::JANE_DILL]
   end
+
+  it "displays an error message if no contacts exist" do
+    fake_ui = FakeUi.new
+    store = MockStore.new
+    finder = Finder.new(fake_ui, store)
+    fake_ui.set_search_keyword("Jane")
+    finder.find_by(:first_name)
+    expect(fake_ui.display_no_contact_error).to be true
+  end
 end
