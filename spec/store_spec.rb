@@ -15,16 +15,14 @@ describe Store do
 
   it "reads data from a file" do
     mock_file = MockFile.new
-    converter = MockParser.new(mock_file)
-    store = Store.new(MockFileSystem.new(mock_file), converter)
+    store = Store.new(MockFileSystem.new(mock_file), MockParser.new(mock_file))
     store.persist("testing")
     expect(store.read_from_file).to eq ["testing"]
   end
 
   it "adds a contact to an existing contact" do
     mock_file = MockFile.new
-    converter = MockParser.new(mock_file, [TestData::JON_DOE])
-    store = Store.new(MockFileSystem.new(mock_file), converter)
+    store = Store.new(MockFileSystem.new(mock_file), MockParser.new(mock_file, [TestData::JON_DOE]))
     store.persist(TestData::JANE_MILLER)
     store.persist(TestData::JON_DOE)
     expect(store.read_from_file).to eq([TestData::JON_DOE, TestData::JANE_MILLER])

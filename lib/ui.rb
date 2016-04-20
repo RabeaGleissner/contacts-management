@@ -28,7 +28,7 @@ class Ui
   end
 
   def no_contacts_to_display_message
-    printer.puts_on_clear_screen("")
+    printer.clear_screen
     output.puts "Sorry, there are no contacts to display!"
   end
 
@@ -75,12 +75,16 @@ class Ui
 
   def get_data_for_field(field_name)
     user_input = input.gets.chomp
-    if user_input == ""
+    if no_user_input(user_input)
       printer.puts_on_clear_screen("\nEach field is required. Please enter the #{format_for_display(field_name).downcase}")
       details_for(field_name)
     else
       user_input
     end
+  end
+
+  def no_user_input(input)
+    input == ""
   end
 
   def display(contact)
@@ -92,7 +96,7 @@ class Ui
 
   def get_continue_request
     decision = input.gets.chomp.downcase
-    if decision== "y"
+    if decision == "y"
       true
     elsif decision == "n"
       false
