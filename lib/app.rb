@@ -1,13 +1,15 @@
 require 'finder'
 require 'creator'
+require 'store'
 
 class App
   attr_reader :contacts
 
-  def initialize(ui, kernel = Kernel)
+  def initialize(ui, store, kernel = Kernel)
     @ui = ui
-    @contacts = []
+    @store = store
     @kernel = kernel
+    @contacts = []
   end
 
   FIELDS = [:first_name, :last_name, :email_address, :mobile_number, :twitter_handle]
@@ -27,14 +29,14 @@ class App
 
   private
 
-  attr_reader :ui, :kernel
+  attr_reader :ui, :store, :kernel
 
   def menu
     chosen_activity = users_response_to_menu
     if wish_to_create_contact(chosen_activity)
-      contacts << Creator.new(ui, FIELDS).create_contact
+      Creator.new(ui, FIELDS, store).create_contact
     elsif wish_to_list_contacts(chosen_activity)
-      ui.display_all(contacts)
+      ui.display_all(store.read_from_file)
     elsif find_contact(chosen_activity)
       display_found_contact
     else
@@ -59,7 +61,7 @@ class App
   end
 
   def display_found_contact
-    Finder.new(ui, contacts).find_by(FIELDS.first)
+    Finder.new(ui, store).find_by(FIELDS.first)
   end
 
   def user_quits?

@@ -3,14 +3,13 @@ require 'stringio'
 require 'ui'
 require 'clear_screen_printer'
 require 'app'
+require 'test_data'
 
 describe Ui do
   let (:input) {StringIO.new}
   let (:output) {StringIO.new}
 
   CLEAR_SCREEN = "\e[H\e[2J"
-  CONTACT_1 = {:first_name=>"Jon", :last_name=>"Doe", :email=>"jon@123.de", :mobile_number=>"00000", :twitter=>"@jon"}
-  CONTACT_2 = {:first_name=>"Jane", :last_name=>"Dill", :email=>"jane@123.de", :mobile_number=>"11111", :twitter=>"@jane"}
   MENU_DISPLAY = "#{CLEAR_SCREEN} :::Contacts management::: \n\nPlease choose a menu option:\n\n1 - Create contact\n2 - List all contacts\n3 - Find contact by first name\n4 - Exit application\n\n---> "
   CONTINUE_QUESTION = "\nWould you like to continue? (y\\n)\n"
   OPTIONS = App::MENU_OPTIONS
@@ -37,8 +36,8 @@ describe Ui do
 
    it "displays all contacts" do
      ui = Ui.new(input, output)
-     ui.display_all([CONTACT_1, CONTACT_2])
-     expect(output.string).to include "\nFirst name: Jon\nLast name: Doe\nEmail: jon@123.de\nMobile number: 00000\nTwitter: @jon\n---\nFirst name: Jane\nLast name: Dill\nEmail: jane@123.de\nMobile number: 11111\nTwitter: @jane\n---\n"
+     ui.display_all([TestData::JON_DOE, TestData::JANE_DILL])
+     expect(output.string).to include "\nFirst name: Jon\nLast name: Doe\nEmail address: jon@123.de\nMobile number: 00000\nTwitter handle: @jon\n---\nFirst name: Jane\nLast name: Dill\nEmail address: jane@123.de\nMobile number: 11111\nTwitter handle: @jane\n---\n"
    end
 
    it "displays a message if there are no contacts to display" do
