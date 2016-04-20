@@ -12,9 +12,9 @@ class Ui
   def users_selected_action(options)
     printer.puts_on_clear_screen(" :::Contacts management::: \n\nPlease choose a menu option:\n\n")
     options.each do |number, option|
-      printer.puts "#{number} - #{format_for_display(option)}"
+      output.puts "#{number} - #{format_for_display(option)}"
     end
-    printer.print"\n---> "
+    output.print"\n---> "
     get_menu_option(options)
   end
 
@@ -29,26 +29,26 @@ class Ui
 
   def no_contacts_to_display_message
     printer.puts_on_clear_screen("")
-    printer.puts "Sorry, there are no contacts to display!"
+    output.puts "Sorry, there are no contacts to display!"
   end
 
   def continue?
-    printer.puts "\nWould you like to continue? (y\\n)"
+    output.puts "\nWould you like to continue? (y\\n)"
     get_continue_request
   end
 
   def details_for(field_name)
-    printer.print "#{format_for_display(field_name)}: "
+    output.print "#{format_for_display(field_name)}: "
     get_data_for_field(field_name)
   end
 
   def ask_for_search_keyword(keyword)
-    printer.puts "\nEnter #{format_for_display(keyword).downcase}:"
+    output.puts "\nEnter #{format_for_display(keyword).downcase}:"
     get_search_keyword(keyword)
   end
 
   def confirm_contact_creation
-    printer.puts "\n\nContact created!"
+    output.puts "\n\nContact created!"
   end
 
   def interruption_message
@@ -85,9 +85,9 @@ class Ui
 
   def display(contact)
     contact.each do |field, entry|
-      printer.puts "#{format_for_display(field)}: #{entry}"
+      output.puts "#{format_for_display(field)}: #{entry}"
     end
-    printer.puts "---"
+    output.puts "---"
   end
 
   def get_continue_request
