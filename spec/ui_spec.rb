@@ -29,6 +29,7 @@ describe Ui do
   end
 
   it "shows menu options again on invalid input" do
+    input = StringIO.new("n\n2")
     ui = Ui.new(input, output)
     allow(ui.input).to receive(:gets).and_return("n", "2")
     ui.users_selected_action(OPTIONS)

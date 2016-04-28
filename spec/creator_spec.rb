@@ -2,12 +2,12 @@ require 'spec_helper'
 require 'creator'
 require 'fake_ui'
 require 'menu'
-require 'file_store_mocks/mock_store'
+require 'test_doubles/store_spy'
 
 describe Creator do
   it "creates a new contact" do
     continue = false
-    store = MockStore.new
+    store = StoreSpy.new
     #FakeUI.choosing(:create_contact)
           #.userWillEnter(.....)
           #.willExit()

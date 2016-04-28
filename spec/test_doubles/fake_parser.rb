@@ -1,6 +1,6 @@
 require 'yaml'
 
-class MockParser
+class FakeParser
   def initialize(mock_file, contact_data = nil)
     @mock_file = mock_file
     @contact_data = contact_data

@@ -1,4 +1,4 @@
-class MockFile
+class FileSpy
   attr_reader :data
 
   def initialize

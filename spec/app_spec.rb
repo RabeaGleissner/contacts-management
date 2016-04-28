@@ -2,12 +2,12 @@ require 'spec_helper'
 require 'app'
 require 'fake_ui'
 require 'fake_kernel'
-require 'file_store_mocks/mock_store'
+require 'test_doubles/store_spy'
 require 'test_data'
 require 'menu'
 
 describe App do
-  let (:mock_store) {MockStore.new}
+  let (:mock_store) {StoreSpy.new}
   let (:menu) {Menu.new}
 
   it "creates new contact" do
@@ -33,7 +33,7 @@ describe App do
 
   it "searches for a specific contact" do
     fake_ui = FakeUi.new([menu.choose(:find_contact_by_first_name)])
-    app = App.new(menu, fake_ui, MockStore.new([TestData::JON_DOE]))
+    app = App.new(menu, fake_ui, StoreSpy.new([TestData::JON_DOE]))
     app.run
     expect(fake_ui.get_search_keyword).to be true
   end

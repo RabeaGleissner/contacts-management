@@ -1,4 +1,4 @@
-class MockStore
+class StoreSpy
   attr_reader :persisted_data, :contact
 
   def initialize(persisted_data = nil)

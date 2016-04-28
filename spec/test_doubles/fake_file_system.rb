@@ -1,4 +1,4 @@
-class MockFileSystem
+class FakeFileSystem
   def initialize(file)
     @file = file
   end
